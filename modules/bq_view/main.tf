@@ -8,5 +8,7 @@ resource "google_bigquery_table" "target_view" {
     }
     view {
         query = var.query 
+        use_legacy_sql = false
     }
+    
 }
