@@ -1,0 +1,26 @@
+[
+  {
+    "description": "customer identifier",
+    "mode": "NULLABLE",
+    "name": "CUSTOMER_ID",
+    "type": "INTEGER"
+  },
+  {
+    "description": "customer's name",
+    "mode": "NULLABLE",
+    "name": "NAME",
+    "type": "STRING"
+  },
+  {
+    "description": "customer's forename",
+    "mode": "NULLABLE",
+    "name": "FORENAME",
+    "type": "STRING"
+  },
+  {
+    "description": "customer's email",
+    "mode": "NULLABLE",
+    "name": "EMAIL",
+    "type": "STRING"
+  }
+]
