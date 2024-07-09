@@ -10,3 +10,8 @@ variable "dataset_id" {
   default     = "terraform_test"
 }
 
+variable "view_dataset_id" {
+  description = "dataset storing views"
+  type        = string
+  default     = "terraform_test_views"
+}
