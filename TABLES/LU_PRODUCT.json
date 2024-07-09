@@ -1,0 +1,20 @@
+[
+  {
+    "description": "product identifier",
+    "mode": "NULLABLE",
+    "name": "PRODUCT_ID",
+    "type": "INTEGER"
+  },
+  {
+    "description": "product's label",
+    "mode": "NULLABLE",
+    "name": "LABEL",
+    "type": "STRING"
+  },
+  {
+    "description": "product's description",
+    "mode": "NULLABLE",
+    "name": "DESCRIPTION",
+    "type": "STRING"
+  }
+]
