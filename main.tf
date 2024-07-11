@@ -1,7 +1,7 @@
-# resource "google_storage_bucket" "ave-bucket-test1" {
-#   name     = "ave-bucket-test1"
-#   location = "EU"
-# } 
+resource "google_storage_bucket" "ave-bucket-test1" {
+  name     = "ave-bucket-test1"
+  location = "EU"
+} 
 
 
 resource "google_bigquery_dataset" "terraform-test" {
@@ -40,6 +40,19 @@ for_each = fileset("${path.module}/TABLES","*.json")
   labels = {
     env = terraform.workspace
   }
+}
+
+module "bq_view" {
+  for_each = fileset("./TABLES/","*.json")
+
+  source = "git@github.com:averbekedgc/terraform_test.git//modules/bq_view"
+  #source = "./modules/bq_view"
+  project_id = var.project_id
+  view_dataset_id = var.view_dataset_id
+  view_id = trimsuffix("${each.key}", ".json")
+  query = "SELECT * FROM ${var.dataset_id}.${trimsuffix("${each.key}", ".json")}"
+  
+  depends_on = [ google_bigquery_dataset.terraform-test, google_bigquery_dataset.view_dataset, google_bigquery_table.test_table ]
 }
 
 
