@@ -1,7 +1,7 @@
 resource "google_storage_bucket" "ave-bucket-test1" {
   name     = "ave-bucket-test1"
   location = "EU"
-} 
+}
 
 
 resource "google_bigquery_dataset" "terraform-test" {
@@ -31,7 +31,7 @@ resource "google_bigquery_dataset" "view_dataset" {
 }
 
 resource "google_bigquery_table" "test_table" {
-for_each = fileset("${path.module}/TABLES","*.json")
+  for_each = fileset("${path.module}/TABLES", "*.json")
 
   dataset_id = var.dataset_id
   table_id   = trimsuffix(each.value, ".json")
@@ -43,16 +43,16 @@ for_each = fileset("${path.module}/TABLES","*.json")
 }
 
 module "bq_view" {
-  for_each = fileset("./TABLES/","*.json")
+  for_each = fileset("./TABLES/", "*.json")
 
   source = "git@github.com:averbekedgc/terraform_test.git//modules/bq_view"
   #source = "./modules/bq_view"
-  project_id = var.project_id
+  project_id      = var.project_id
   view_dataset_id = var.view_dataset_id
-  view_id = trimsuffix("${each.key}", ".json")
-  query = "SELECT * FROM ${var.dataset_id}.${trimsuffix("${each.key}", ".json")}"
-  
-  depends_on = [ google_bigquery_dataset.terraform-test, google_bigquery_dataset.view_dataset, google_bigquery_table.test_table ]
+  view_id         = trimsuffix("${each.key}", ".json")
+  query           = "SELECT * FROM ${var.dataset_id}.${trimsuffix("${each.key}", ".json")}"
+
+  depends_on = [google_bigquery_dataset.terraform-test, google_bigquery_dataset.view_dataset, google_bigquery_table.test_table]
 }
 
 
